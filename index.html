@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100b24">
+  <meta name="description" content="MERCY AI — a personal AI workspace for thoughtful conversations, with Android and Windows versions planned.">
+  <title>MERCY AI — Intelligence, in a softer light</title>
+  <link rel="icon" type="image/png" href="assets/mercy-logo.png">
+  <style>
+    :root {
+      --bg: #090713;
+      --ink: #f8f5ff;
+      --muted: #c4bddb;
+      --violet: #b8a0ff;
+      --lavender: #e3d8ff;
+      --glass: rgba(255,255,255,.075);
+      --line: rgba(255,255,255,.17);
+      --shadow: 0 24px 80px rgba(0,0,0,.3);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background:
+        radial-gradient(ellipse at 18% 8%, rgba(142,93,255,.23), transparent 38%),
+        radial-gradient(ellipse at 85% 40%, rgba(94,66,185,.19), transparent 38%),
+        linear-gradient(155deg, #0b0817 0%, #100b24 48%, #090713 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      min-height: 100vh; overflow-x: hidden;
+    }
+    body::before, body::after {
+      content:""; position:fixed; z-index:-1; border-radius:50%; filter:blur(3px); pointer-events:none;
+      background:linear-gradient(135deg,rgba(255,255,255,.17),rgba(168,130,255,.04));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    body::before { width:420px;height:420px;top:14%;left:-270px; }
+    body::after { width:520px;height:520px;right:-350px;bottom:-180px; }
+    a { color:inherit; text-decoration:none; }
+    .shell { width:min(1160px, calc(100% - 40px)); margin:auto; }
+    .nav-wrap { position:sticky;top:12px;z-index:10;padding-top:12px; }
+    nav {
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+      padding:12px 16px;border:1px solid var(--line);border-radius:24px;
+      background:rgba(22,16,43,.58);backdrop-filter:blur(28px) saturate(170%);
+      -webkit-backdrop-filter:blur(28px) saturate(170%);box-shadow:0 12px 40px rgba(0,0,0,.16);
+    }
+    .brand { display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.16em;font-size:13px; }
+    .brand img { width:38px;height:38px;object-fit:cover;border-radius:13px;box-shadow:0 0 25px #a887ff35; }
+    .nav-links { display:flex;align-items:center;gap:25px;color:#d6cfee;font-size:13px; }
+    .nav-links a { transition:color .2s; }.nav-links a:hover {color:white}
+    .nav-cta,.button {
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:12px 18px;
+      font-size:13px;font-weight:650;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;
+    }
+    .nav-cta,.button.primary { color:#201333;background:linear-gradient(135deg,#fff 0%,#e8ddff 42%,#b69aff 100%);box-shadow:0 8px 30px #9c7aff27; }
+    .button.secondary { background:rgba(255,255,255,.065);color:white;backdrop-filter:blur(20px); }
+    .nav-cta:hover,.button:hover { transform:translateY(-2px);box-shadow:0 12px 34px #9d7cff35; }
+    .hero { min-height:660px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:35px;padding:74px 0 72px; }
+    .eyebrow { display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:#d9ccff;font-size:11px;letter-spacing:.13em;text-transform:uppercase; }
+    .dot { width:7px;height:7px;border-radius:50%;background:#c4aaff;box-shadow:0 0 13px #c4aaff; }
+    h1 { font-size:clamp(48px,6.5vw,82px);line-height:.99;letter-spacing:-.065em;margin:24px 0 22px;font-weight:720; }
+    h1 span { background:linear-gradient(100deg,#fff 10%,#e2d6ff 48%,#a88aff 90%);-webkit-background-clip:text;background-clip:text;color:transparent; }
+    .hero p { max-width:540px;color:var(--muted);font-size:17px;line-height:1.75;margin:0 0 28px; }
+    .actions { display:flex;flex-wrap:wrap;gap:12px; }
+    .microcopy { color:#9188ac;font-size:11px;margin-top:18px; }
+    .visual { position:relative;display:grid;place-items:center;min-height:420px; }
+    .orb-ring { position:absolute;width:min(420px,95%);aspect-ratio:1;border-radius:50%;border:1px solid rgba(221,208,255,.18);box-shadow:inset 0 0 70px #ad8cff0a,0 0 90px #9a75ff0c;animation:float 8s ease-in-out infinite; }
+    .orb-ring::before,.orb-ring::after {content:"";position:absolute;inset:9%;border-radius:50%;border:1px solid rgba(255,255,255,.11);transform:rotateX(66deg) rotateZ(25deg);}
+    .orb-ring::after {transform:rotateX(66deg) rotateZ(-35deg);inset:18%;}
+    .logo-plate { position:relative;width:min(300px,70%);aspect-ratio:1;border-radius:31%;padding:0;overflow:hidden;box-shadow:0 35px 100px #8d6bff35,0 0 0 1px #ffffff30;animation:float 6s ease-in-out infinite; }
+    .logo-plate img { width:100%;height:100%;object-fit:cover;display:block; }
+    .shine { position:absolute;inset:-60%;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.18) 48%,transparent 56%);transform:translateX(-50%) rotate(8deg);animation:shine 7s ease-in-out infinite;pointer-events:none; }
+    .floating-chip { position:absolute;padding:12px 15px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.09);backdrop-filter:blur(24px);box-shadow:var(--shadow);font-size:12px;color:#e6ddff; }
+    .chip-one {top:13%;right:1%;}.chip-two {bottom:13%;left:0%;}
+    .section { padding:72px 0; }
+    .section-head { max-width:650px;margin-bottom:30px; }
+    .kicker {color:#bca9ff;font-size:11px;text-transform:uppercase;letter-spacing:.17em;font-weight:700;}
+    h2 {font-size:clamp(30px,4vw,48px);letter-spacing:-.045em;line-height:1.08;margin:13px 0 14px;}
+    .section-head p,.about-copy {color:var(--muted);line-height:1.75;font-size:15px;}
+    .glass-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .glass-card,.download-panel,.contact-panel {
+      border:1px solid var(--line);border-radius:26px;padding:25px;
+      background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));
+      backdrop-filter:blur(25px) saturate(145%);-webkit-backdrop-filter:blur(25px) saturate(145%);
+      box-shadow:0 18px 55px rgba(0,0,0,.13);
+    }
+    .icon-box {width:43px;height:43px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#ffffff25,#a88bff22);border:1px solid #ffffff20;margin-bottom:19px;font-size:20px;}
+    h3 {font-size:17px;margin:0 0 10px;letter-spacing:-.02em;}
+    .glass-card p {color:#bdb4d7;font-size:13px;line-height:1.7;margin:0;}
+    .about-layout {display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:stretch;}
+    .about-mark {display:flex;flex-direction:column;justify-content:space-between;min-height:280px;background:radial-gradient(ellipse at 50% 20%,#9b79ff28,transparent 55%),rgba(255,255,255,.045);}
+    .about-mark img {width:86px;height:86px;border-radius:25px;box-shadow:0 10px 40px #a181ff30;}
+    .about-mark .small-label {font-size:11px;letter-spacing:.15em;color:#bbaaff;text-transform:uppercase;}
+    .about-copy {margin:0 0 15px;}
+    .pill-row {display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+    .pill {border:1px solid #ffffff20;background:#ffffff08;border-radius:999px;padding:8px 11px;color:#d8cef5;font-size:11px;}
+    .download-panel {display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:30px;}
+    .download-panel p {color:var(--muted);font-size:14px;line-height:1.7;max-width:630px;margin-bottom:0;}
+    .platforms {display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+    .platform {padding:22px;border-radius:23px;border:1px solid var(--line);background:rgba(255,255,255,.045);display:flex;align-items:center;gap:15px;}
+    .platform .platform-icon {font-size:25px;width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:#ffffff0c;border:1px solid #ffffff18;}
+    .platform p {margin:5px 0 0;color:#9e94b9;font-size:12px;line-height:1.5;}
+    .status {font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#d6c7ff;border:1px solid #bca4ff42;border-radius:999px;padding:5px 8px;white-space:nowrap;}
+    .contact-panel {display:flex;justify-content:space-between;align-items:center;gap:24px;background:radial-gradient(ellipse at 85% 10%,#9b7bff22,transparent 50%),rgba(255,255,255,.06);}
+    .contact-panel p {color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:0;}
+    footer {padding:25px 0 38px;color:#817895;font-size:11px;display:flex;justify-content:space-between;gap:18px;border-top:1px solid #ffffff12;margin-top:50px;}
+    .toast {position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:rgba(36,27,61,.92);border:1px solid #ffffff30;border-radius:14px;padding:12px 16px;font-size:13px;backdrop-filter:blur(20px);transition:.25s;z-index:50;box-shadow:var(--shadow);}
+    .toast.show {opacity:1;transform:translate(-50%,0);}
+    @keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    @keyframes shine {0%,15%{transform:translateX(-60%) rotate(8deg)}55%,100%{transform:translateX(60%) rotate(8deg)}}
+    @media(max-width:800px) {
+      .nav-links {display:none}.hero {grid-template-columns:1fr;padding-top:62px;gap:15px}.hero-copy{text-align:center}.hero p{margin-left:auto;margin-right:auto}.actions{justify-content:center}.microcopy{text-align:center}.visual{min-height:350px}.logo-plate{width:245px}.orb-ring{width:330px}
+      .glass-grid{grid-template-columns:1fr 1fr}.about-layout{grid-template-columns:1fr}.about-mark{min-height:190px}.download-panel{grid-template-columns:1fr}.platforms{grid-template-columns:1fr}
+    }
+    @media(max-width:520px) {
+      .shell{width:min(100% - 28px,1160px)}nav{padding:9px 11px}.brand{letter-spacing:.1em}.brand img{width:33px;height:33px}.nav-cta{padding:10px 13px;font-size:12px}
+      .hero{min-height:auto;padding:60px 0 35px}h1{font-size:51px}.hero p{font-size:15px}.visual{min-height:300px}.logo-plate{width:210px}.orb-ring{width:285px}.floating-chip{font-size:10px;padding:10px 12px}.chip-one{right:0}.chip-two{left:0}
+      .section{padding:48px 0}.glass-grid{grid-template-columns:1fr}.glass-card{padding:22px}.download-panel{padding:23px}.contact-panel{align-items:flex-start;flex-direction:column}footer{flex-direction:column}
+    }
+
+    /* Mobile refinement: keep the same visual identity, scaled down cleanly. */
+    img, svg { max-width: 100%; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    .shell { width: min(1160px, calc(100% - 40px)); }
+    .hero, .section, .nav-wrap { min-width: 0; }
+    .hero-copy, .visual, .glass-card, .download-panel, .contact-panel,
+    .platform, .section-head { min-width: 0; }
+    .contact-panel .button { overflow-wrap: anywhere; text-align: center; }
+    @media (max-width: 800px) {
+      .shell { width: calc(100% - 32px); }
+      .nav-wrap { top: 8px; padding-top: 8px; }
+      nav { border-radius: 20px; }
+      .hero { min-height: auto; padding: 54px 0 42px; }
+      .hero-copy { width: 100%; }
+      .hero p { max-width: 520px; }
+      .visual { width: 100%; min-height: clamp(280px, 60vw, 360px); }
+      .orb-ring { width: min(76vw, 330px); }
+      .logo-plate { width: min(56vw, 245px); }
+      .chip-one { right: 2%; }
+      .chip-two { left: 2%; }
+      .section { padding: 48px 0; }
+      .glass-grid { gap: 12px; }
+      .glass-card { overflow-wrap: anywhere; }
+      .about-layout { gap: 14px; }
+      .download-panel { gap: 16px; }
+    }
+    @media (max-width: 520px) {
+      .shell { width: calc(100% - 28px); }
+      nav { gap: 8px; padding: 8px 10px; border-radius: 18px; }
+      .brand { gap: 8px; font-size: 11px; letter-spacing: .08em; }
+      .brand img { width: 31px; height: 31px; border-radius: 10px; }
+      .nav-cta { padding: 9px 11px; font-size: 11px; gap: 5px; white-space: nowrap; }
+      .hero { padding: 44px 0 30px; gap: 8px; }
+      .eyebrow { font-size: 9px; letter-spacing: .1em; padding: 7px 10px; }
+      h1 { font-size: clamp(40px, 11vw, 52px); letter-spacing: -.06em; margin: 20px 0 16px; }
+      .hero p { font-size: 14px; line-height: 1.7; }
+      .actions { gap: 9px; }
+      .button { padding: 11px 14px; font-size: 12px; }
+      .microcopy { font-size: 10px; line-height: 1.6; }
+      .visual { min-height: 270px; }
+      .orb-ring { width: min(76vw, 280px); }
+      .logo-plate { width: min(55vw, 205px); border-radius: 30%; }
+      .floating-chip { font-size: 9px; padding: 9px 10px; border-radius: 13px; }
+      .chip-one { top: 10%; right: 0; }
+      .chip-two { bottom: 9%; left: 0; }
+      .section { padding: 38px 0; }
+      h2 { font-size: clamp(28px, 8vw, 38px); }
+      .section-head p { font-size: 13px; }
+      .glass-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+      .glass-card { padding: 20px; border-radius: 22px; }
+      .icon-box { width: 38px; height: 38px; margin-bottom: 14px; }
+      .glass-card p { font-size: 13px; }
+      .about-mark { min-height: 170px; }
+      .about-mark img { width: 68px; height: 68px; }
+      .about-mark h2 { font-size: 29px !important; }
+      .about-copy { font-size: 13px; }
+      .pill-row { gap: 6px; }
+      .pill { font-size: 10px; padding: 7px 9px; }
+      .download-panel { padding: 20px; border-radius: 22px; }
+      .download-panel p { font-size: 13px; overflow-wrap: anywhere; }
+      .platforms { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+      .platform { padding: 17px; gap: 12px; border-radius: 20px; }
+      .platform-icon { flex: 0 0 42px; }
+      .platform h3 { font-size: 15px; }
+      .platform p { font-size: 11px; }
+      .status { font-size: 9px; padding: 5px 7px; }
+      .contact-panel { padding: 21px; border-radius: 22px; }
+      .contact-panel p { font-size: 13px; }
+      .contact-panel .button { width: 100%; white-space: normal; overflow-wrap: anywhere; }
+      footer { gap: 10px; font-size: 10px; overflow-wrap: anywhere; }
+    }
+    @media (max-width: 360px) {
+      .shell { width: calc(100% - 22px); }
+      .brand { font-size: 10px; }
+      .nav-cta { padding: 8px 9px; font-size: 10px; }
+      h1 { font-size: 39px; }
+      .actions .button { width: 100%; }
+      .visual { min-height: 245px; }
+      .floating-chip { max-width: 47%; }
+    }
+
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="nav-wrap shell">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#home"><img src="assets/mercy-logo.png" alt="MERCY AI logo"><span>MERCY AI</span></a>
+      <div class="nav-links">
+        <a href="#features">Features</a><a href="#about">About</a><a href="#downloads">Downloads</a><a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="#downloads">Get MERCY <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="hero shell" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> Your personal AI workspace</div>
+        <h1>Intelligence,<br><span>in a softer light.</span></h1>
+        <p>MERCY AI brings conversation and creativity into one calm, beautifully crafted space. Designed with a liquid-glass feel for your everyday AI workflow.</p>
+        <div class="actions">
+          <a class="button primary" href="#downloads">Explore downloads <span aria-hidden="true">↓</span></a>
+          <a class="button secondary" href="mailto:contact.mercyintelligence@gmail.com">Contact the team <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="microcopy">One vision. Android and Windows experiences planned.</div>
+      </div>
+      <div class="visual" aria-label="MERCY AI logo artwork">
+        <div class="orb-ring"></div>
+        <div class="logo-plate"><img src="assets/mercy-logo.png" alt="MERCY AI glossy purple M logo"><div class="shine"></div></div>
+        <div class="floating-chip chip-one">✦ &nbsp; Thoughtful by design</div>
+        <div class="floating-chip chip-two">◌ &nbsp; Liquid Glass interface</div>
+      </div>
+    </section>
+
+    <section class="section shell" id="features">
+      <div class="section-head">
+        <div class="kicker">Made for your flow</div>
+        <h2>Less friction.<br>More room to think.</h2>
+        <p>A simple, focused foundation for your AI sessions — with a polished interface that feels at home on both phone and desktop.</p>
+      </div>
+      <div class="glass-grid">
+        <article class="glass-card"><div class="icon-box">✧</div><h3>AI conversations</h3><p>A dedicated chat experience for asking questions, exploring ideas, and getting help with everyday tasks.</p></article>
+        <article class="glass-card"><div class="icon-box">⌘</div><h3>Your model, your choice</h3><p>Planned settings for your provider, model, and personal API key, so you can configure the experience around your needs.</p></article>
+        <article class="glass-card"><div class="icon-box">◈</div><h3>Private by design</h3><p>Local secure storage is part of the planned app architecture for keeping configuration details on your device.</p></article>
+        <article class="glass-card"><div class="icon-box">◉</div><h3>Liquid Glass aesthetic</h3><p>Translucent layers, soft violet light, luminous surfaces, and subtle motion inspired by modern glass UI design.</p></article>
+        <article class="glass-card"><div class="icon-box">▣</div><h3>Across your devices</h3><p>A shared Flutter and Dart codebase is intended to support Android and Windows builds.</p></article>
+        <article class="glass-card"><div class="icon-box">↗</div><h3>Made to feel responsive</h3><p>Designed to adapt from a compact mobile screen to a roomy desktop layout, with animated feedback for interactions.</p></article>
+      </div>
+    </section>
+
+    <section class="section shell" id="about">
+      <div class="about-layout">
+        <div class="glass-card about-mark">
+          <div><img src="assets/mercy-logo.png" alt="MERCY AI app icon"></div>
+          <div><div class="small-label">Meet MERCY</div><h2 style="font-size:34px;margin-bottom:0">A little more clarity.</h2></div>
+        </div>
+        <div class="glass-card">
+          <div class="kicker">About the project</div>
+          <h2>AI that feels like yours.</h2>
+          <p class="about-copy">MERCY is an AI app project focused on making AI conversations feel clear, personal, and easy to use. The current direction combines an elegant purple-and-black visual identity, a glowing central visual, and a modern Liquid Glass interface.</p>
+          <p class="about-copy">The planned app is being built with Flutter and Dart, with Android APK and Windows EXE as target deliverables. Provider/model selection and user-supplied API-key configuration are part of the intended experience.</p>
+          <div class="pill-row"><span class="pill">MERCY AI</span><span class="pill">Flutter + Dart</span><span class="pill">Android</span><span class="pill">Windows</span><span class="pill">Liquid Glass UI</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="downloads">
+      <div class="section-head">
+        <div class="kicker">Take MERCY with you</div>
+        <h2>Your next download starts here.</h2>
+        <p>Download buttons are prepared for the Android and Windows releases. The installers will become available once the final files are added.</p>
+      </div>
+      <div class="download-panel">
+        <div><h3>Get the MERCY AI app</h3><p>Release files are not attached yet. Check back when the APK and EXE are published, or contact us for project updates.</p></div>
+        <span class="status">Coming soon</span>
+      </div>
+      <div class="platforms">
+        <div class="platform"><div class="platform-icon">▣</div><div style="flex:1"><h3>Android APK</h3><p>For Android phones and tablets.</p></div><span class="status">Coming soon</span></div>
+        <div class="platform"><div class="platform-icon">⊞</div><div style="flex:1"><h3>Windows EXE</h3><p>For Windows desktop and laptop.</p></div><span class="status">Coming soon</span></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="contact">
+      <div class="contact-panel">
+        <div><div class="kicker">Say hello</div><h2 style="margin-bottom:10px">Let’s talk MERCY.</h2><p>Questions, feedback, or release enquiries? Send a message to the MERCY team.</p></div>
+        <a class="button primary" href="mailto:contact.mercyintelligence@gmail.com">✉ &nbsp; contact.mercyintelligence@gmail.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell"><span>© <span id="year"></span> MERCY AI. All rights reserved.</span><span>Designed with a little violet light ✦</span><a href="mailto:contact.mercyintelligence@gmail.com">Contact</a></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Smoothly acknowledge clicks on in-page navigation and the primary actions.
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        link.animate([{transform:'scale(1)'},{transform:'scale(.97)'},{transform:'scale(1)'}], {duration:220});
+      });
+    });
+  </script>
+</body>
+</html>

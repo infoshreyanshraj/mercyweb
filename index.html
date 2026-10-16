@@ -200,6 +200,14 @@
       .floating-chip { max-width: 47%; }
     }
 
+
+    .jarvis-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .jarvis-grid .glass-card { min-width: 0; }
+    .jarvis-note { margin-top: 16px; }
+    .jarvis-note p { color: #bdb4d7; font-size: 13px; line-height: 1.75; margin: 0; }
+    @media(max-width:800px) { .jarvis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media(max-width:520px) { .jarvis-grid { grid-template-columns: minmax(0, 1fr); } }
+
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -208,7 +216,7 @@
     <nav aria-label="Main navigation">
       <a class="brand" href="#home"><img src="assets/mercy-logo.png" alt="MERCY AI logo"><span>MERCY AI</span></a>
       <div class="nav-links">
-        <a href="#features">Features</a><a href="#about">About</a><a href="#downloads">Downloads</a><a href="#contact">Contact</a>
+        <a href="#features">Features</a><a href="#about">About</a><a href="#downloads">Downloads</a><a href="#jarvis">JARVIS</a><a href="#contact">Contact</a>
       </div>
       <a class="nav-cta" href="#downloads">Get MERCY <span aria-hidden="true">↗</span></a>
     </nav>
@@ -279,6 +287,57 @@
       <div class="platforms">
         <div class="platform"><div class="platform-icon">▣</div><div style="flex:1"><h3>Android APK</h3><p>For Android phones and tablets.</p></div><span class="status">Coming soon</span></div>
         <div class="platform"><div class="platform-icon">⊞</div><div style="flex:1"><h3>Windows EXE</h3><p>For Windows desktop and laptop.</p></div><span class="status">Coming soon</span></div>
+      </div>
+    </section>
+
+
+    <section class="section shell" id="jarvis">
+      <div class="section-head">
+        <div class="kicker">Beyond the chat</div>
+        <h2>Meet MERCY JARVIS.</h2>
+        <p>A vision for a more capable personal AI — from natural voice conversations to PC assistance, gaming tools and everyday automation. Features marked as planned are not necessarily available in the current app.</p>
+      </div>
+      <div class="glass-grid jarvis-grid">
+        <article class="glass-card"><div class="icon-box">◉</div><h3>Live AI Orb</h3><p>A glowing orb that reflects when MERCY is idle, listening, thinking or speaking.</p></article>
+        <article class="glass-card"><div class="icon-box">♫</div><h3>Voice Assistant</h3><p>Natural spoken conversations, speech-to-text, spoken replies and a future “Hey Mercy” wake word.</p></article>
+        <article class="glass-card"><div class="icon-box">▧</div><h3>Screen Vision</h3><p>Share a screenshot and ask MERCY to explain an error, summarize what is on screen or guide you through a task.</p></article>
+        <article class="glass-card"><div class="icon-box">✧</div><h3>Long-Term Memory</h3><p>Remember user-approved preferences and project context, with controls to review and delete saved memories.</p></article>
+        <article class="glass-card"><div class="icon-box">⌘</div><h3>Windows PC Control</h3><p>Launch apps, open folders, visit websites and run approved commands through a companion desktop app.</p></article>
+        <article class="glass-card"><div class="icon-box">▦</div><h3>Window Manager</h3><p>Switch desktops, arrange windows and create useful layouts with voice commands or shortcuts.</p></article>
+        <article class="glass-card"><div class="icon-box">◴</div><h3>System Monitor</h3><p>View CPU, GPU, RAM, temperatures, storage and network usage in a live dashboard.</p></article>
+        <article class="glass-card"><div class="icon-box">⌕</div><h3>Smart File Search</h3><p>Find documents and project files by name, type or supported content search.</p></article>
+        <article class="glass-card"><div class="icon-box">▤</div><h3>Clipboard Assistant</h3><p>Rewrite, summarize, translate or format copied text before you use it.</p></article>
+        <article class="glass-card"><div class="icon-box">▣</div><h3>Screenshot Tools</h3><p>Capture and review screenshots, annotate important areas and explain visible errors.</p></article>
+        <article class="glass-card"><div class="icon-box">⚡</div><h3>Performance Helper</h3><p>Identify resource-heavy processes and suggest safe ways to improve PC performance.</p></article>
+        <article class="glass-card"><div class="icon-box">⇄</div><h3>File Organizer</h3><p>Sort downloads by type, date or project and preview changes before moving files.</p></article>
+        <article class="glass-card"><div class="icon-box">⌁</div><h3>Command Center</h3><p>Run saved scripts and PowerShell commands with clear previews and confirmation for risky actions.</p></article>
+        <article class="glass-card"><div class="icon-box">🎮</div><h3>Gaming Copilot</h3><p>Track supported performance metrics and suggest game settings for smoother gameplay.</p></article>
+        <article class="glass-card"><div class="icon-box">▧</div><h3>Minecraft Assistant</h3><p>Calculate crafting materials, plan farms, explain coordinates and help troubleshoot mods.</p></article>
+        <article class="glass-card"><div class="icon-box">⌨</div><h3>Mod Development Helper</h3><p>Review Gradle errors, suggest code fixes and help build Minecraft mods.</p></article>
+        <article class="glass-card"><div class="icon-box">▶</div><h3>Clip Assistant</h3><p>Help organize gameplay recordings and locate saved highlights.</p></article>
+        <article class="glass-card"><div class="icon-box">▣</div><h3>Game Library</h3><p>Launch installed games from one place and organize your game shortcuts.</p></article>
+        <article class="glass-card"><div class="icon-box">🧩</div><h3>Mod Manager</h3><p>Track mod versions and back up configuration files before changes.</p></article>
+        <article class="glass-card"><div class="icon-box">◉</div><h3>Server Dashboard</h3><p>Monitor your own Minecraft server, player count and logs through authorized integrations.</p></article>
+        <article class="glass-card"><div class="icon-box">◈</div><h3>Gaming Profiles</h3><p>Apply per-game settings profiles and restore previous settings when you finish playing.</p></article>
+        <article class="glass-card"><div class="icon-box">◷</div><h3>Smart Reminders</h3><p>Set reminders, alarms, timers and recurring nudges for important tasks.</p></article>
+        <article class="glass-card"><div class="icon-box">✎</div><h3>Study Mode</h3><p>Explain chapters, create revision notes and quiz you on what you have learned.</p></article>
+        <article class="glass-card"><div class="icon-box">☼</div><h3>Daily Briefing</h3><p>Summarize your upcoming schedule, tasks and requested updates in one place.</p></article>
+        <article class="glass-card"><div class="icon-box">✉</div><h3>Email Assistant</h3><p>Draft and summarize emails for you to review before sending.</p></article>
+        <article class="glass-card"><div class="icon-box">文</div><h3>Translation</h3><p>Translate between languages and switch naturally between Hindi, English and Hinglish.</p></article>
+        <article class="glass-card"><div class="icon-box">⌕</div><h3>Research Mode</h3><p>Compare products, summarize sources and organize findings into a useful answer.</p></article>
+        <article class="glass-card"><div class="icon-box">♫</div><h3>Music Control</h3><p>Control supported music apps and launch your chosen playlists.</p></article>
+        <article class="glass-card"><div class="icon-box">◌</div><h3>Focus Mode</h3><p>Start a study timer and help reduce distractions using settings you approve.</p></article>
+        <article class="glass-card"><div class="icon-box">⤴</div><h3>Multi-Step AI Agent</h3><p>Break a goal into steps, use approved tools, report progress and ask before consequential actions.</p></article>
+        <article class="glass-card"><div class="icon-box">↔</div><h3>Phone-to-PC Bridge</h3><p>Send commands from Android, check task progress and receive notifications from your Windows PC.</p></article>
+        <article class="glass-card"><div class="icon-box">⌘</div><h3>AI Coding Workspace</h3><p>Create and edit project files, run tests and inspect proposed changes before applying them.</p></article>
+        <article class="glass-card"><div class="icon-box">⛨</div><h3>Security Guardian</h3><p>Review startup entries and security status, and explain suspicious commands without silently changing protections.</p></article>
+        <article class="glass-card"><div class="icon-box">◌</div><h3>Offline Mode</h3><p>Keep selected local commands available without internet, with optional local-model support.</p></article>
+        <article class="glass-card"><div class="icon-box">⌂</div><h3>Smart Home</h3><p>Control compatible devices through supported integrations and user-authorized commands.</p></article>
+      </div>
+      <div class="glass-card jarvis-note">
+        <div class="icon-box">✦</div>
+        <h3>Built in stages, with your control</h3>
+        <p>These are MERCY's planned capabilities and ideas, not a claim that every feature is already implemented. Desktop control, wake-word listening, live system metrics and phone-to-PC commands require compatible app components, permissions and integrations. MERCY should ask before deleting files, publishing changes or performing other consequential actions.</p>
       </div>
     </section>
 
